@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+    <!-- 로그인 -->
+    <select id="list"  resultType="com.javaex.vo.UserVo">
+        <![CDATA[
+				SELECT m.m_remarks mRemarks,
+				       m.m_name mName,
+				       m.m_ticketing mTicketing,
+				       m.m_date mDate,
+				       m.m_theater mTheater,
+				       s.s_no sNo
+				FROM user_table u
+				JOIN seat_table s ON u.user_no = s.user_no
+				JOIN movie_table m ON s.m_no = m.m_no
+				 WHERE u.user_hp = #{u.user_hp};
+        ]]>
+    </select>
+</mapper>
+
+
+
+
+
+
+	<!-- select m_remarks "예매번호", 
+	            m_name "영화제목", 
+	            m_ticketing "영화예매시간", 
+	            m_date "영화날짜", 
+	            m_theater"상영관", 
+	            s_no "좌석번호" 
+	     from user_table, movie_table, seat_table;  -->
