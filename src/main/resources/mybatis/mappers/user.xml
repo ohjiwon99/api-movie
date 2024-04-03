@@ -5,29 +5,27 @@
     <!-- 로그인 -->
     <select id="list"  resultType="com.javaex.vo.UserVo">
         <![CDATA[
-				SELECT m.m_remarks mRemarks,
-				       m.m_name mName,
-				       m.m_ticketing mTicketing,
-				       m.m_date mDate,
-				       m.m_theater mTheater,
-				       s.s_no sNo
-				FROM user_table u
-				JOIN seat_table s ON u.user_no = s.user_no
-				JOIN movie_table m ON s.m_no = m.m_no
-				 WHERE u.user_hp = #{u.user_hp};
+				SELECT 
+				    mr.m_r_no AS '영화예매번호',
+				    m.m_name AS '제목',
+				    mr.m_r_date AS '상영일자',
+				    s.s_date AS '상영시간',
+				    GROUP_CONCAT(DISTINCT mp.m_s_no ORDER BY mp.m_s_no ASC) AS '좌석번호',
+				    COUNT(DISTINCT mp.m_s_no) AS '인원수',
+				    m.m_price AS '영화가격',
+				    u.user_name AS '구매자이름',
+				    u.user_point AS '포인트'
+				FROM 
+				    movie_receipt mr
+				    JOIN screening_table s ON mr.s_no = s.s_no
+				    JOIN movie_table m ON s.m_no = m.m_no
+				    JOIN movie_purchase mp ON mr.m_r_no = mp.m_r_no
+				    JOIN user_table u ON mr.user_no = u.user_no
+				WHERE
+				    u.user_hp = #{phoneNumber}
+				GROUP BY
+				    mr.m_r_no, m.m_name, mr.m_r_date, s.s_date, m.m_price, u.user_name;
+
         ]]>
     </select>
 </mapper>
-
-
-
-
-
-
-	<!-- select m_remarks "예매번호", 
-	            m_name "영화제목", 
-	            m_ticketing "영화예매시간", 
-	            m_date "영화날짜", 
-	            m_theater"상영관", 
-	            s_no "좌석번호" 
-	     from user_table, movie_table, seat_table;  -->

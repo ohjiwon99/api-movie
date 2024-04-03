@@ -1,4 +1,3 @@
-
 package com.javaex.dao;
 
 import java.util.List;
@@ -11,20 +10,18 @@ import com.javaex.vo.UserVo;
 
 @Repository
 public class UserDao {
-	
-	 @Autowired
-	 private SqlSession sqlSession;
+    
+    @Autowired
+    private SqlSession sqlSession;
 
-    public List<UserVo> userList() {
-		System.out.println("UserDao.userList()");
-		
-		List<UserVo> userList = sqlSession.selectList("user.list");
-		System.out.println(userList);
-		
-		return userList;
-	}
-
+    public List<UserVo> userList(String phoneNumber) {
+        System.out.println("UserDao.userList()");
+        try {
+            List<UserVo> userList = sqlSession.selectList("user.list", phoneNumber);
+            return userList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("데이터베이스에서 유저 목록을 가져오는 데 실패했습니다.");
+        }
+    }
 }
-
-
-
