@@ -14,15 +14,11 @@ public class UserService {
     @Autowired
     private UserDao userDao;
     
-    public List<UserVo> getUserList(String phoneNumber) {
-        System.out.println("UserService.getUserList()");
+    public List<UserVo> exeMovieList(String phoneNumber) {
+       System.out.println("UserService.exeMovieList()");
         
-        try {
-            List<UserVo> userList = userDao.userList(phoneNumber);
-            return userList;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("데이터베이스에서 유저 목록을 가져오는 데 실패했습니다.");
-        }
+        List<UserVo> userList = userDao.userList(phoneNumber);
+		return userList;
+
     }
 }

@@ -21,13 +21,10 @@ public class UserController {
     public JsonResult userList(@RequestParam String phoneNumber) {
         System.out.println("UserController.userList()");
         
-        try {
-            List<UserVo> userList = userService.getUserList(phoneNumber);
-            System.out.println(userList);
-            return JsonResult.success(userList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonResult.fail("유저 목록을 가져오는 데 실패했습니다.");
-        }
+        System.out.println(phoneNumber);
+        
+        List<UserVo> userList = userService.exeMovieList(phoneNumber);
+        
+        return JsonResult.success(userList);
     }
 }

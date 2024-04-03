@@ -16,12 +16,11 @@ public class UserDao {
 
     public List<UserVo> userList(String phoneNumber) {
         System.out.println("UserDao.userList()");
-        try {
-            List<UserVo> userList = sqlSession.selectList("user.list", phoneNumber);
-            return userList;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("데이터베이스에서 유저 목록을 가져오는 데 실패했습니다.");
-        }
+        
+        List<UserVo> userList = sqlSession.selectList("user.list",phoneNumber);
+		System.out.println(userList);
+
+		return userList;
+    
     }
 }

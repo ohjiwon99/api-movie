@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
-    <!-- 로그인 -->
-    <select id="list"  resultType="com.javaex.vo.UserVo">
+    <!-- 영화조회 -->
+    <select id="list" resultType="UserVo" parameterType="string">
         <![CDATA[
 				SELECT 
-				    mr.m_r_no AS '영화예매번호',
-				    m.m_name AS '제목',
-				    mr.m_r_date AS '상영일자',
-				    s.s_date AS '상영시간',
-				    GROUP_CONCAT(DISTINCT mp.m_s_no ORDER BY mp.m_s_no ASC) AS '좌석번호',
-				    COUNT(DISTINCT mp.m_s_no) AS '인원수',
-				    m.m_price AS '영화가격',
-				    u.user_name AS '구매자이름',
-				    u.user_point AS '포인트'
+				    mr.m_r_no,
+				    m.m_name,
+				    mr.m_r_date,
+				    s.s_date,
+				    GROUP_CONCAT(DISTINCT mp.m_s_no ORDER BY mp.m_s_no ASC),
+				    COUNT(DISTINCT mp.m_s_no),
+				    m.m_price,
+				    u.user_name,
+				    u.user_point
 				FROM 
 				    movie_receipt mr
 				    JOIN screening_table s ON mr.s_no = s.s_no
