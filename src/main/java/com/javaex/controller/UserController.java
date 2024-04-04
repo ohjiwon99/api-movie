@@ -14,17 +14,29 @@ import com.javaex.vo.UserVo;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping(value="/api/movie")
-    public JsonResult userList(@RequestParam String phoneNumber) {
-        System.out.println("UserController.userList()");
-        
-        System.out.println(phoneNumber);
-        
-        List<UserVo> userList = userService.exeMovieList(phoneNumber);
-        
-        return JsonResult.success(userList);
-    }
+	@GetMapping(value = "/api/movie")
+	public JsonResult reservationMovieList(@RequestParam String phoneNumber) {
+		System.out.println("UserController.reservationMovieList()");
+
+		System.out.println(phoneNumber);
+
+		List<UserVo> userList = userService.exeMovieList(phoneNumber);
+
+		return JsonResult.success(userList);
+	}
+
+	@GetMapping(value = "/api/moviebyno")
+	public JsonResult reservationMovie(@RequestParam(value = "m_r_no") int m_r_no) {
+		System.out.println("UserController.reservationMovie()");
+
+		UserVo reservation = userService.exeMovieNo(m_r_no);
+
+		System.out.println(m_r_no);
+
+		return JsonResult.success(reservation);
+	}
+
 }
